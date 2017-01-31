@@ -1,5 +1,7 @@
 # <a name="z-card"></a> z-card
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/z-kit/z-card.svg)](https://greenkeeper.io/)
+
 [![Build]](https://travis-ci.org/z-kit/z-card) [![SemVer]](http://semver.org/) [![License]](LICENSE)
 
 A block container component to organize your web app. It is useful as a widget that can display brief information and perform related actions.

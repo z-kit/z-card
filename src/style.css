@@ -1,0 +1,57 @@
+/*!
+ * Copyright (c) 2017 z-kit contributors.
+ * MIT LICENSE
+ * https://github.com/z-kit/z-card
+ */
+
+/* Local variables */
+:root {
+  --card-background-color: #fff;
+  --card-border-color: #ddd;
+  --max-elevation: 5;
+}
+
+/* Each card has a default initial elevation that can be increased or made flat */
+.z-card {
+  overflow: hidden;
+  border-radius: 8px;
+  z-index: 1;
+  box-shadow:
+    0 2px 3px rgba(0, 0, 0, 0.11),
+    1px 2px 2px rgba(0, 0, 0, 0.1),
+    -1px -2px 2px rgba(0, 0, 0, 0.05);
+}
+
+.z-card,
+.z-card__header,
+.z-card__content,
+.z-card__footer {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  background: var(--card-background-color);
+}
+
+/* Card footer divisor */
+.z-card__footer { border-top: 1px solid var(--card-border-color); }
+
+/* Create more elevation levels up to --max-elevation */
+@for $i from 1 to var(--max-elevation) {
+  .z-card--elevated-$i {
+    z-index: calc($i + 1);
+    box-shadow:
+      0 2px $(i)3px rgba(0, 0, 0, 0.11),
+      1px 2px $(i)2px rgba(0, 0, 0, 0.1),
+      -1px -2px $(i)2px rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* Card modifiers */
+.z-card--flat {
+  z-index: 0;
+  box-shadow: none;
+}
+.z-card--bordered { border: 1px solid var(--card-border-color); }
+
+/* Specify animation for elevation changes */
+.z-card--animated { transition: box-shadow 0.2s ease; }

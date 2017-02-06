@@ -1,7 +1,7 @@
 module.exports = {
   default: (browser) => {
     browser
-      .url('http://localhost:3000/iframe.html?selectedKind=Stateless%20functional%20component&selectedStory=default')
+      .url('http://localhost:6006/iframe.html?selectedKind=Stateless%20functional%20component&selectedStory=default')
       .waitForElementPresent('.z-card', 1000)
       .assert.containsText('.z-card__header', 'Title')
       .assert.containsText('.z-card__content', 'Content')
@@ -10,7 +10,7 @@ module.exports = {
   },
   'Fill parent container': (browser) => {
     browser
-      .url('http://localhost:3000/iframe.html?selectedKind=Stateless%20functional%20component&selectedStory=default')
+      .url('http://localhost:6006/iframe.html?selectedKind=Stateless%20functional%20component&selectedStory=default')
       .waitForElementPresent('.z-card', 1000)
       .getElementSize('#root', (parentSize) => {
         const parentWidth = parentSize.value.width;
@@ -23,14 +23,14 @@ module.exports = {
   },
   bordered: (browser) => {
     browser
-      .url('http://localhost:3000/iframe.html?selectedKind=Stateless%20functional%20component&selectedStory=bordered')
+      .url('http://localhost:6006/iframe.html?selectedKind=Stateless%20functional%20component&selectedStory=bordered')
       .waitForElementPresent('.z-card', 1000)
       .assert.cssProperty('.z-card', 'border', '1px solid rgb(221, 221, 221)')
       .end();
   },
   elevated: (browser) => {
     browser
-      .url('http://localhost:3000/iframe.html?selectedKind=Stateless%20functional%20component&selectedStory=elevated')
+      .url('http://localhost:6006/iframe.html?selectedKind=Stateless%20functional%20component&selectedStory=elevated')
       .waitForElementPresent('.z-card', 1000)
       .getCssProperty('.z-card', 'box-shadow', (result) => {
         browser.assert.ok(result.value !== 'none', 'Elevated cards should cast some shadow');
@@ -39,7 +39,7 @@ module.exports = {
   },
   flat: (browser) => {
     browser
-      .url('http://localhost:3000/iframe.html?selectedKind=Stateless%20functional%20component&selectedStory=flat')
+      .url('http://localhost:6006/iframe.html?selectedKind=Stateless%20functional%20component&selectedStory=flat')
       .waitForElementPresent('.z-card', 1000)
       .getCssProperty('.z-card', 'box-shadow', (result) => {
         browser.assert.ok(result.value === 'none', 'Flat cards should not cast any shadows');

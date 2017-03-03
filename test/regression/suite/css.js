@@ -1,49 +1,89 @@
-module.exports = {
-  default: (browser) => {
-    browser
-      .url('http://localhost:6006/iframe.html?selectedKind=CSS%20component&selectedStory=default')
-      .waitForElementPresent('.z-card', 1000)
-      .assert.containsText('.z-card__header', 'Title')
-      .assert.containsText('.z-card__content', 'Content')
-      .assert.containsText('.z-card__footer', 'Footer')
-      .end();
-  },
-  'Fill parent container': (browser) => {
-    browser
-      .url('http://localhost:6006/iframe.html?selectedKind=CSS%20component&selectedStory=default')
-      .waitForElementPresent('.z-card', 1000)
-      .getElementSize('#root', (parentSize) => {
-        const parentWidth = parentSize.value.width;
-        browser.getElementSize('.z-card', (cardSize) => {
-          const cardWidth = cardSize.value.width;
-          browser.assert.equal(parentWidth, cardWidth);
-        });
-      })
-      .end();
-  },
-  bordered: (browser) => {
-    browser
-      .url('http://localhost:6006/iframe.html?selectedKind=CSS%20component&selectedStory=bordered')
-      .waitForElementPresent('.z-card', 1000)
-      .assert.cssProperty('.z-card', 'border', '1px solid rgb(221, 221, 221)')
-      .end();
-  },
-  elevated: (browser) => {
-    browser
-      .url('http://localhost:6006/iframe.html?selectedKind=CSS%20component&selectedStory=elevated')
-      .waitForElementPresent('.z-card', 1000)
-      .getCssProperty('.z-card', 'box-shadow', (result) => {
-        browser.assert.ok(result.value !== 'none', 'Elevated cards should cast some shadow');
-      })
-      .end();
-  },
-  flat: (browser) => {
-    browser
-      .url('http://localhost:6006/iframe.html?selectedKind=CSS%20component&selectedStory=flat')
-      .waitForElementPresent('.z-card', 1000)
-      .getCssProperty('.z-card', 'box-shadow', (result) => {
-        browser.assert.ok(result.value === 'none', 'Flat cards should not cast any shadows');
-      })
-      .end();
-  },
-};
+import { test } from 'ava';
+import Nightmare from 'nightmare';
+
+test('CSS component - default', (t) => {
+  t.plan(1);
+  const msg = 'should render the title content';
+  const expected = 'Title';
+  return Nightmare()
+    .goto('http://localhost:6006/iframe.html?selectedKind=CSS%20component&selectedStory=default')
+    .wait('.z-card')
+    .evaluate(() => document.querySelector('.z-card__header').textContent)
+    .end()
+    .then(actual => t.deepEqual(expected, actual, msg));
+});
+
+test('CSS component - default', (t) => {
+  t.plan(1);
+  const msg = 'should render the main content';
+  const expected = 'Content';
+  return Nightmare()
+    .goto('http://localhost:6006/iframe.html?selectedKind=CSS%20component&selectedStory=default')
+    .wait('.z-card')
+    .evaluate(() => document.querySelector('.z-card__content').textContent)
+    .end()
+    .then(actual => t.deepEqual(expected, actual, msg));
+});
+
+test('CSS component - default', (t) => {
+  t.plan(1);
+  const msg = 'should render the footer content';
+  const expected = 'Footer';
+  return Nightmare()
+    .goto('http://localhost:6006/iframe.html?selectedKind=CSS%20component&selectedStory=default')
+    .wait('.z-card')
+    .evaluate(() => document.querySelector('.z-card__footer').textContent)
+    .end()
+    .then(actual => t.deepEqual(expected, actual, msg));
+});
+
+test('CSS component - default', (t) => {
+  t.plan(1);
+  const msg = 'should render a container that fill the parent\'s width';
+  return Nightmare()
+    .goto('http://localhost:6006/iframe.html?selectedKind=CSS%20component&selectedStory=default')
+    .wait('.z-card')
+    .evaluate(() => {
+      const outerWidth = getComputedStyle(document.querySelector('body > div')).width;
+      const innerWidth = getComputedStyle(document.querySelector('.z-card')).width;
+      return [outerWidth, innerWidth];
+    })
+    .end()
+    .then(widths => t.deepEqual(widths[0], widths[1], msg));
+});
+
+test('CSS component - bordered', (t) => {
+  t.plan(1);
+  const msg = 'should render the card borders';
+  const expected = '1px solid rgb(221, 221, 221)';
+  return Nightmare()
+    .goto('http://localhost:6006/iframe.html?selectedKind=CSS%20component&selectedStory=bordered')
+    .wait('.z-card')
+    .evaluate(() => getComputedStyle(document.querySelector('.z-card')).border)
+    .end()
+    .then(actual => t.deepEqual(expected, actual, msg));
+});
+
+test('CSS component - elevated', (t) => {
+  t.plan(1);
+  const msg = 'card should cast some shadow';
+  const notExpected = 'none';
+  return Nightmare()
+    .goto('http://localhost:6006/iframe.html?selectedKind=CSS%20component&selectedStory=elevated')
+    .wait('.z-card')
+    .evaluate(() => getComputedStyle(document.querySelector('.z-card')).boxShadow)
+    .end()
+    .then(actual => t.notDeepEqual(notExpected, actual, msg));
+});
+
+test('CSS component - flat', (t) => {
+  t.plan(1);
+  const msg = 'card should not cast shadows';
+  const expected = 'none';
+  return Nightmare()
+    .goto('http://localhost:6006/iframe.html?selectedKind=CSS%20component&selectedStory=flat')
+    .wait('.z-card')
+    .evaluate(() => getComputedStyle(document.querySelector('.z-card')).boxShadow)
+    .end()
+    .then(actual => t.deepEqual(expected, actual, msg));
+});

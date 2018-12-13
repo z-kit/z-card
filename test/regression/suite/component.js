@@ -1,7 +1,7 @@
-import { test } from 'ava';
+import test from 'ava';
 import Nightmare from 'nightmare';
 
-test('SFC component - default', (t) => {
+test('SFC component - title', (t) => {
   t.plan(1);
   const msg = 'should render the title content';
   const expected = 'Title';
@@ -13,7 +13,7 @@ test('SFC component - default', (t) => {
     .then(actual => t.deepEqual(expected, actual, msg));
 });
 
-test('SFC component - default', (t) => {
+test('SFC component - main', (t) => {
   t.plan(1);
   const msg = 'should render the main content';
   const expected = 'Content';
@@ -25,7 +25,7 @@ test('SFC component - default', (t) => {
     .then(actual => t.deepEqual(expected, actual, msg));
 });
 
-test('SFC component - default', (t) => {
+test('SFC component - footer', (t) => {
   t.plan(1);
   const msg = 'should render the footer content';
   const expected = 'Footer';
@@ -37,15 +37,15 @@ test('SFC component - default', (t) => {
     .then(actual => t.deepEqual(expected, actual, msg));
 });
 
-test('SFC component - default', (t) => {
+test('SFC component - fill', (t) => {
   t.plan(1);
   const msg = 'should render a container that fill the parent\'s width';
   return Nightmare()
     .goto('http://localhost:6006/iframe.html?selectedKind=Stateless%20functional%20component&selectedStory=default')
     .wait('.z-card')
     .evaluate(() => {
-      const outerWidth = getComputedStyle(document.querySelector('body > div')).width;
-      const innerWidth = getComputedStyle(document.querySelector('.z-card')).width;
+      const outerWidth = document.querySelector('#root').getBoundingClientRect().width;
+      const innerWidth = document.querySelector('.z-card').getBoundingClientRect().width;
       return [outerWidth, innerWidth];
     })
     .end()

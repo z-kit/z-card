@@ -1,5 +1,5 @@
 import React from 'react';
-import { storiesOf } from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
 import { card } from '../src/component';
 
 const Card = card(React.createElement);
@@ -17,13 +17,14 @@ storiesOf('CSS component', module)
   .add('flat', () => <div className="z-card z-card--flat">{InnerCardElements}</div>);
 
 storiesOf('Stateless functional component', module)
-  .add('default', () => <Card header={'Title'} content={'Content'} footer={'Footer'} />)
-  .add('elevated', () =>
-    <Card header={'Title'} content={'Content'} footer={'Footer'} elevation={2} />
-  )
-  .add('bordered', () =>
-    <Card header={'Title'} content={'Content'} footer={'Footer'} bordered />
-  )
-  .add('flat', () =>
-    <Card header={'Title'} content={'Content'} footer={'Footer'} flat />
-  );
+  .add('default', () => <Card header="Title" content="Content" footer="Footer" />)
+  .add('elevated', () => (
+    <Card
+      header="Title"
+      content="Content"
+      footer="Footer"
+      elevation={2}
+    />
+  ))
+  .add('bordered', () => <Card header="Title" content="Content" footer="Footer" bordered />)
+  .add('flat', () => <Card header="Title" content="Content" footer="Footer" flat />);

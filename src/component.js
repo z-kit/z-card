@@ -17,13 +17,13 @@ const classnames = {
   flat: styles['z-card--flat'] || 'z-card--flat',
   bordered: styles['z-card--bordered'] || 'z-card--bordered',
   animated: styles['z-card--animated'] || 'z-card--animated',
-  elevationLevels: (function getElevationLevels() {
+  elevationLevels: (() => {
     const elevationLevels = [];
     for (let i = 1; i <= MAX_ELEVATION_LEVEL; i += 1) {
       elevationLevels[i] = styles[`z-card--elevated-${i}`] || `z-card--elevated-${i}`;
     }
     return elevationLevels;
-  }()),
+  })(),
 };
 
 export function card(e) {

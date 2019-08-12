@@ -27,9 +27,10 @@ const classnames = {
 };
 
 export function card(e) {
-  return ({ header, content, footer, flat, bordered, animated, elevation }) => {
+  return ({ header, content, footer, flat, bordered, animated, elevation, children }) => {
     const headerElement = (header) ? e('div', { className: classnames.header }, header) : null;
-    const contentElement = (content) ? e('div', { className: classnames.content }, content) : null;
+    let contentElement = (content) ? e('div', { className: classnames.content }, content) : null;
+    if (children) contentElement = e('div', { className: classnames.content }, children);
     const footerElement = (footer) ? e('div', { className: classnames.footer }, footer) : null;
     const block = [classnames.card];
     const modifiers = [];

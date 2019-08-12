@@ -75,6 +75,7 @@
     ],
     "rules": {
       "new-cap": "off",
+      "arrow-parens": "off",
       "object-curly-newline": "off",
       "import/no-extraneous-dependencies": "off",
       "import/no-unresolved": "off",

@@ -21,6 +21,19 @@ test('Card default view', (t) => {
   return t.deepEqual(actual, expected, msg);
 });
 
+test('Card default view with children', (t) => {
+  const msg = 'should render children as content';
+  const actual = shallow(<ZCard>Hello!</ZCard>).html();
+  const expected = shallow((
+    <div className="z-card">
+      <div className="z-card__content">
+        Hello!
+      </div>
+    </div>
+  )).html();
+  return t.deepEqual(actual, expected, msg);
+});
+
 test('Card elevated view', (t) => {
   const msg = 'should render';
   const actual = shallow(

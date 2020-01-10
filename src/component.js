@@ -50,7 +50,7 @@ export function card(e) {
     if (animated) modifiers.push(classnames.animated);
     if (elevation) modifiers.push(classnames.elevationLevels[elevation]);
     const additionalClasses = className || '';
-    const classes = block.concat(modifiers).join(' ') + additionalClasses;
+    const classes = `${block.concat(modifiers).join(' ')} ${additionalClasses}`;
     return e('div', { className: classes, ...props }, [
       headerElement,
       contentElement,

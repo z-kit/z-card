@@ -27,7 +27,18 @@ const classnames = {
 };
 
 export function card(e) {
-  return ({ header, content, footer, flat, bordered, animated, elevation, children, ...props }) => {
+  return ({
+    header,
+    content,
+    footer,
+    flat,
+    bordered,
+    animated,
+    elevation,
+    children,
+    className,
+    ...props
+  }) => {
     const headerElement = (header) ? e('div', { className: classnames.header }, header) : null;
     let contentElement = (content) ? e('div', { className: classnames.content }, content) : null;
     if (children) contentElement = e('div', { className: classnames.content }, children);
@@ -38,9 +49,9 @@ export function card(e) {
     if (bordered) modifiers.push(classnames.bordered);
     if (animated) modifiers.push(classnames.animated);
     if (elevation) modifiers.push(classnames.elevationLevels[elevation]);
-    const additionalClasses = props.class || props.className || '';
-    const className = block.concat(modifiers).join(' ') + additionalClasses;
-    return e('div', { className, ...props }, [
+    const additionalClasses = className || '';
+    const classes = block.concat(modifiers).join(' ') + additionalClasses;
+    return e('div', { className: classes, ...props }, [
       headerElement,
       contentElement,
       footerElement,

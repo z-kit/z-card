@@ -21,6 +21,19 @@ test('Card default view', (t) => {
   return t.deepEqual(actual, expected, msg);
 });
 
+test('Card passthrough style props', (t) => {
+  const msg = 'should render with style';
+  const actual = shallow(<ZCard header="Title" content="Content" footer="Footer" style={{ border: 0 }} />).html();
+  const expected = shallow((
+    <div className="z-card" style={{ border: 0 }}>
+      <div className="z-card__header">Title</div>
+      <div className="z-card__content">Content</div>
+      <div className="z-card__footer">Footer</div>
+    </div>
+  )).html();
+  return t.deepEqual(actual, expected, msg);
+});
+
 test('Card default view with children', (t) => {
   const msg = 'should render children as content';
   const actual = shallow(<ZCard>Hello!</ZCard>).html();

@@ -1,6 +1,6 @@
 {
   "name": "z-card",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "A block container component to organize your web app",
   "main": "dist/index.js",
   "minified:main": "dist/index.min.js",

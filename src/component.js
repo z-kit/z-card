@@ -38,7 +38,8 @@ export function card(e) {
     if (bordered) modifiers.push(classnames.bordered);
     if (animated) modifiers.push(classnames.animated);
     if (elevation) modifiers.push(classnames.elevationLevels[elevation]);
-    const className = block.concat(modifiers).join(' ');
+    const additionalClasses = props.class || props.className || '';
+    const className = block.concat(modifiers).join(' ') + additionalClasses;
     return e('div', { className, ...props }, [
       headerElement,
       contentElement,
